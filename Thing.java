@@ -21,6 +21,4 @@ public abstract class Thing{
         this.price = price;
     }
     public abstract String info();
-
-    public abstract void buy();
 }

@@ -15,11 +15,6 @@ public class ColdDrink extends Thing{
         return name;
     }
 
-    @Override
-    public void buy() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'buy'");
-    }
 
 
     

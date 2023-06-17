@@ -39,9 +39,4 @@ public class HotDrink extends Thing{
         }
     }
 
-    @Override
-    public void buy() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'buy'");
-    }
 }
