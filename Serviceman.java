@@ -24,6 +24,15 @@ public class Serviceman extends Person {
     public void addFanta(VendingMachine vending, int n){
         vending.getFanta().setQuantity(n);
     }
+    public void addLays(VendingMachine vending, int n){
+        vending.getCzipsy().setQuantity(n);
+    }
+    public void addZelki(VendingMachine vending, int n){
+        vending.getZelki().setQuantity(n);
+    }
+    public void addPaluszki(VendingMachine vending, int n){
+        vending.getPaluszki().setQuantity(n);
+    }
 
     
 }

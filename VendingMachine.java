@@ -4,6 +4,16 @@ public class VendingMachine {
     private int bigCupQuantity = 10;
     private int mediumCupQuantity = 10;
     private int smallCupQuantity = 10;
+    HotDrink czarna_kawa = new BlackCoffee();
+    HotDrink herbata = new Tea();
+    HotDrink biala_kawa = new WhiteCoffee();
+    ColdDrink cola = new CocaCola();
+    ColdDrink fanta = new Fanta();
+    ColdDrink pepsi = new Pepsi();
+    Lays czipsy = new Lays();
+    GummyBears zelki = new GummyBears();
+    BreadSticks paluszki = new BreadSticks();
+    
     public int getSugarPortions() {
         return sugarPortions;
     }
@@ -28,13 +38,15 @@ public class VendingMachine {
     public void setSmallCupQuantity(int smallCupQuantity) {
         this.smallCupQuantity = smallCupQuantity;
     }
-    HotDrink czarna_kawa = new BlackCoffee();
-    HotDrink herbata = new Tea();
-    HotDrink biala_kawa = new WhiteCoffee();
-    ColdDrink cola = new CocaCola();
-    ColdDrink fanta = new Fanta();
-    ColdDrink pepsi = new Pepsi();
-    
+    public Lays getCzipsy() {
+        return czipsy;
+    }
+    public GummyBears getZelki() {
+        return zelki;
+    }
+    public BreadSticks getPaluszki() {
+        return paluszki;
+    }
     public HotDrink getCzarna_kawa() {
         return czarna_kawa;
     }
