@@ -1,7 +1,13 @@
 public class Serviceman extends Person {
-
+    private int pin = 6969;
+    public int getPin(){
+        return pin;
+    }
     public Serviceman(String name, String surname){
         super(name, surname);
+    }
+    public Serviceman(){
+        super();
     }
     public void refillWater(VendingMachine x){
         x.setWaterQuantity(10);

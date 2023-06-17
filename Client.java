@@ -5,6 +5,10 @@ public class Client extends Person{
         super(name, surname);
         this.cash = cash;
     }
+    public Client(double cash){
+        super();
+        this.cash = cash;
+    }
     public double getMoney(){
         return cash;
     }

@@ -1,19 +1,37 @@
-public class VendingMachine {
+public final class VendingMachine {
+    private static VendingMachine instance;
     private double waterQuantity = 10;
     private int sugarPortions = 10;
     private int bigCupQuantity = 10;
     private int mediumCupQuantity = 10;
     private int smallCupQuantity = 10;
-    HotDrink czarna_kawa = new BlackCoffee();
-    HotDrink herbata = new Tea();
-    HotDrink biala_kawa = new WhiteCoffee();
-    ColdDrink cola = new CocaCola();
-    ColdDrink fanta = new Fanta();
-    ColdDrink pepsi = new Pepsi();
-    Lays czipsy = new Lays();
-    GummyBears zelki = new GummyBears();
-    BreadSticks paluszki = new BreadSticks();
-    
+    HotDrink czarna_kawa;
+    HotDrink herbata;
+    HotDrink biala_kawa;
+    ColdDrink cola;
+    ColdDrink fanta;
+    ColdDrink pepsi;
+    Lays czipsy;
+    GummyBears zelki;
+    BreadSticks paluszki;
+    private VendingMachine(){
+        czarna_kawa = new BlackCoffee();
+        herbata = new Tea();
+        biala_kawa = new WhiteCoffee();
+        cola = new CocaCola();
+        fanta = new Fanta();
+        pepsi = new Pepsi();
+        czipsy = new Lays();
+        zelki = new GummyBears();
+        paluszki = new BreadSticks();
+    }
+    public static VendingMachine getInstance(){
+        if(instance == null){
+            instance = new VendingMachine();
+        }
+        return instance;
+
+    }
     public int getSugarPortions() {
         return sugarPortions;
     }
