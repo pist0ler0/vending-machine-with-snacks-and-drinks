@@ -1,4 +1,4 @@
-public class ColdDrink extends Thing{
+public class ColdDrink extends Item{
     private String name;
     public ColdDrink(int quantity, double price, String name){
         super(quantity, price);
@@ -13,6 +13,11 @@ public class ColdDrink extends Thing{
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public double cost() {
+       return super.getPrice();
     }
 
 
