@@ -5,48 +5,50 @@ import java.awt.event.ActionListener;
 
 
 public class MyFrame extends JFrame implements ActionListener{
-    private JFrame ramka;
+     
     private JButton serviceButton;
     private JButton clientButton;
     private JButton exitButton;
-    private Client client;
+    private Person person;
+    public MyFrame getMyFrame(){
+        return this;
+    }
     public MyFrame(){
-        ramka = new JFrame();
-        ramka.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        ramka.setSize(800, 800);
-        ramka.setLocationRelativeTo(null);
-        ramka.setTitle("Vending Machine Simulator");
-        ramka.setResizable(false);
-        ramka.setLayout(new GridLayout(8, 2, 20, 20));
-        ramka.add(new JLabel());
-        ramka.add(new JLabel());
-        ramka.add(new JLabel());
+        super("nie umiem");
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setSize(800, 800);
+        setLocationRelativeTo(null);
+        setTitle("Vending Machine Simulator");
+        setResizable(false);
+        setLayout(new GridLayout(8, 2, 20, 20));
+        add(new JLabel());
+        add(new JLabel());
+        add(new JLabel());
         serviceButton = new JButton("Pracownik Serwisu");
         clientButton = new JButton("Klient");
         clientButton.addActionListener(this);
         serviceButton.addActionListener(this);
-        ramka.add(serviceButton);
-        ramka.add(clientButton);
+        add(serviceButton);
+        add(clientButton);
         exitButton = new JButton("Zamknij");
         exitButton.addActionListener(this);
-        ramka.add(new JLabel());
-        ramka.add(exitButton);
-        ramka.setVisible(true);
+        add(new JLabel());
+        add(exitButton);
+        setVisible(true);
 
     }
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == clientButton){
-            ramka.dispose();  
-            client = new Client(100);
-            VendingMachineFrame v = new VendingMachineFrame(client);
+            dispose();  
+            person = new Client(100);
         }
         if(e.getSource() == serviceButton){
-            ramka.setVisible(false);
+            setVisible(false);
             PinFrame frame = new PinFrame(this);
         }
         if(e.getSource() == exitButton){
-            ramka.dispose();
+            dispose();
         }
     }
 
