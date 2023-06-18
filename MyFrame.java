@@ -9,7 +9,7 @@ public class MyFrame extends JFrame implements ActionListener{
     private JButton serviceButton;
     private JButton clientButton;
     private JButton exitButton;
-    private Person person;
+    private Client person;
     public MyFrame getMyFrame(){
         return this;
     }
@@ -42,10 +42,11 @@ public class MyFrame extends JFrame implements ActionListener{
         if(e.getSource() == clientButton){
             dispose();  
             person = new Client(100);
+            new VendingMachineFrame(person);
         }
         if(e.getSource() == serviceButton){
             setVisible(false);
-            PinFrame frame = new PinFrame(this);
+            new PinFrame(this);
         }
         if(e.getSource() == exitButton){
             dispose();

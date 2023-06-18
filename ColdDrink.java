@@ -1,6 +1,6 @@
 public class ColdDrink extends Item{
     private String name;
-    public ColdDrink(int quantity, double price, String name){
+    public ColdDrink(int quantity, float price, String name){
         super(quantity, price);
         this.name = name;
     }
@@ -16,7 +16,7 @@ public class ColdDrink extends Item{
     }
 
     @Override
-    public double cost() {
+    public float cost() {
        return super.getPrice();
     }
 

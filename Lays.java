@@ -15,7 +15,7 @@ public class Lays extends Item {
     }
 
     @Override
-    public double cost() {
+    public float cost() {
         return super.getPrice();
     }
     

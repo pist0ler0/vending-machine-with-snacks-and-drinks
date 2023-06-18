@@ -1,19 +1,20 @@
 public class Client extends Person{
-    private double cash;
+    private float cash;
     
-    public Client(String name, String surname, double cash){
+    public Client(String name, String surname, float cash){
         super(name, surname);
         this.cash = cash;
     }
-    public Client(double cash){
+    public Client(float cash){
         super();
         this.cash = cash;
     }
-    public double getMoney(){
+    public float getMoney(){
+        cash = (float) (Math.round(cash*100)/100);
         return cash;
     }
-    public void setMoney(double cash){
-        this.cash = cash;
+    public void setMoney(float cash){
+        this.cash = (float) (Math.round(cash*100)/100);
     }
     public void buyBlackCoffee(VendingMachine vending ){
         if(vending.getCzarna_kawa().getPrice()>=cash){

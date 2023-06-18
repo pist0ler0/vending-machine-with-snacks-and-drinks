@@ -2,12 +2,18 @@ public class HotDrink extends Item{
     private String name;
     private int sugarQuantity;
     private String size;
-    public HotDrink(int quantity, double price, String name){
+    private VendingMachineFrame frame;
+    private float cost;
+    public HotDrink(int quantity, float price, String name, VendingMachineFrame frame){
         super(quantity, price);
         this.name = name;
         sugarQuantity = 1;
+        this.frame = frame;
     }
    
+    public void setSugarQuantity(int sugar){
+        this.sugarQuantity = sugar;
+    }
     public int getSugarQuantity() {
         return sugarQuantity;
     }
@@ -15,7 +21,6 @@ public class HotDrink extends Item{
     public String getSize() {
         return size;
     }
-
     public void setSize(String size) {
         this.size = size;
     }
@@ -30,24 +35,23 @@ public class HotDrink extends Item{
     public String getName() {
         return name;
     }
-    public void addSugar(VendingMachine v){
-        if(sugarQuantity!=5){
-           sugarQuantity = sugarQuantity+1;
-           v.setSugarPortions(v.getSugarPortions()-1);
-        }
-    }
-    public void decreaseSugar(){
-        if(sugarQuantity!=0){
-           sugarQuantity = sugarQuantity-1;
-        }
-    }
     @Override
-    public double cost(){
-        if(sugarQuantity>1){
-            super.setPrice(super.getPrice()+0.2*(sugarQuantity-1));
+    public float cost(){
+        cost = super.getPrice();
+        System.out.println("oryginalna cena "+cost);
+        sugarQuantity = frame.getSugarQuantity();
+        if( frame.getCupSize() == 1){
+            cost = cost + 0.4f;
         }
-        return super.getPrice();
-        
+        if( frame.getCupSize() == 2){
+            cost = cost + 0.8f;
+        }
+        if(sugarQuantity>1){
+            cost= cost + 0.2f*(sugarQuantity-1);
+        }
+        System.out.println("Koszt tego gówna przed zaokragleniu to "+cost);
+        cost = (float) (Math.round(cost * 100.0) / 100.0);
+        System.out.println("Koszt tego gówna po zaokragleniu to "+cost);
+        return cost;
     }
-
 }

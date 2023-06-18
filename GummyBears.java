@@ -14,7 +14,7 @@ public class GummyBears extends Item{
     }
 
     @Override
-    public double cost() {
+    public float cost() {
         return super.getPrice();
     }
     

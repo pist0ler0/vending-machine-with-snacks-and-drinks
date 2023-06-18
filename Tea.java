@@ -1,8 +1,6 @@
-public class Tea extends HotDrink{
 
-    public Tea() {
-        super(10, 2.20, "Herbata");
+public class Tea extends HotDrink{
+    public Tea(VendingMachineFrame frame) {
+        super(10, 4.5f, "Herbata", frame);
     }
-    
-    
 }

@@ -1,7 +1,7 @@
 public class BlackCoffee extends HotDrink {
 
-    public BlackCoffee() {
-        super(10, 4.50, "Czarna kawa");
+    public BlackCoffee(VendingMachineFrame frame) {
+        super(10, 4.50f, "Czarna kawa", frame);
         
     }
     

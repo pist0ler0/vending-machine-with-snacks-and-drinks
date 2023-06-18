@@ -1,10 +1,13 @@
 public final class VendingMachine {
     private static VendingMachine instance;
-    private double waterQuantity = 10;
+    private float waterQuantity = 10;
     private int sugarPortions = 10;
     private int bigCupQuantity = 10;
     private int mediumCupQuantity = 10;
     private int smallCupQuantity = 10;
+    private float reqSmallCupWaterQuantity = 0.3f;
+    private float reqMediumCupWaterQuantity = 0.4f;
+    private float reqBigCupWaterQuantity = 0.5f;
     HotDrink czarna_kawa;
     HotDrink herbata;
     HotDrink biala_kawa;
@@ -14,10 +17,10 @@ public final class VendingMachine {
     Lays czipsy;
     GummyBears zelki;
     BreadSticks paluszki;
-    private VendingMachine(){
-        czarna_kawa = new BlackCoffee();
-        herbata = new Tea();
-        biala_kawa = new WhiteCoffee();
+    private VendingMachine(VendingMachineFrame frame){
+        czarna_kawa = new BlackCoffee(frame);
+        herbata = new Tea(frame);
+        biala_kawa = new WhiteCoffee(frame);
         cola = new CocaCola();
         fanta = new Fanta();
         pepsi = new Pepsi();
@@ -25,12 +28,22 @@ public final class VendingMachine {
         zelki = new GummyBears();
         paluszki = new BreadSticks();
     }
-    public static VendingMachine getInstance(){
+    public static VendingMachine getInstance(VendingMachineFrame frame){
         if(instance == null){
-            instance = new VendingMachine();
+            instance = new VendingMachine(frame);
         }
         return instance;
 
+    }
+    
+    public float getReqSmallCupWaterQuantity() {
+        return reqSmallCupWaterQuantity;
+    }
+    public float getReqMediumCupWaterQuantity() {
+        return reqMediumCupWaterQuantity;
+    }
+    public float getReqBigCupWaterQuantity() {
+        return reqBigCupWaterQuantity;
     }
     public int getSugarPortions() {
         return sugarPortions;
@@ -83,10 +96,10 @@ public final class VendingMachine {
     public ColdDrink getPepsi() {
         return pepsi;
     }
-    public double getWaterQuantity() {
+    public float getWaterQuantity() {
         return waterQuantity;
     }
-    public void setWaterQuantity(double waterQuantity) {
+    public void setWaterQuantity(float waterQuantity) {
         this.waterQuantity = waterQuantity;
     }
     
