@@ -1,24 +1,33 @@
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
-//TODO konstruktor z przekazaniem Serwisanta, Gui Serwisanta
 
-public class VendingMachineFrame extends JFrame implements ActionListener{
-    Client client;
-    Serviceman serviceman;
-    JButton checkQuantityButton;
-    JLabel waterQuantityJLabel;
+public final class VendingMachineFrame extends JFrame implements ActionListener{
+   
+    //Panel klienta
+    Client client = new Client(100f);
     JButton goToMyFrameButton;
     JButton buyButton;
+    JLabel brokenBuyJLabel;
+    JLabel brokenBalanceLabel;
     JComboBox<String> whatItemToBuyBox;
+    JComboBox<String> paymentBox;
+    private String[] paymentMethods = {"Płatność kartą", "Płatność gotówką"};
     JButton exitButton;
     VendingMachine v;
     CupSizePopup cupSizePopup;
     JButton checkBalanceButton;
+    private int unluckyNumber = 3;
     private int sugarQuantity;
     private int cupSize;
+    private static VendingMachineFrame instance;
+    
+    //Panel Serwisanta
+    Serviceman serviceman;
+    
     public int getSugarQuantity(){
         return sugarQuantity;
     }
@@ -31,20 +40,15 @@ public class VendingMachineFrame extends JFrame implements ActionListener{
     }
     private String[] things = { "CocaCola", "Fanta", "Pepsi", "Czarna kawa", "Biała kawa", "Herbata", "Chipsy Lays", "Żelki Gumisie", "Paluszki Krakuski"  };
 
-    public VendingMachineFrame(Serviceman serviceman){
-        super("Panel Serwisanta");
-        v = VendingMachine.getInstance(this);
-
-    }
-    public VendingMachineFrame(Client client){
+    
+    private VendingMachineFrame(){
         super("Panel Klienta");
         v = VendingMachine.getInstance(this);
-        this.client = client;
         setSize(800, 800);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
-        setLayout(new GridLayout(10, 2, 10, 10));
+        setLayout(new GridLayout(10, 1, 10, 10));
         whatItemToBuyBox = new JComboBox<>(things);
         buyButton = new JButton("Kup");
         buyButton.addActionListener(this);
@@ -54,24 +58,42 @@ public class VendingMachineFrame extends JFrame implements ActionListener{
         goToMyFrameButton.addActionListener(this);
         exitButton = new JButton("Wyjdź");
         exitButton.addActionListener(this);
+        paymentBox = new JComboBox<>(paymentMethods);
         add(new JLabel("Vending Machine"));
-        add(new JLabel());
-        add(new JLabel());
+        brokenBalanceLabel = new JLabel();
+        brokenBuyJLabel = new JLabel();
+        add(brokenBalanceLabel);
+        add(brokenBuyJLabel);
         add(new JLabel("Wybierz co chcesz kupić"));
         add(whatItemToBuyBox);
+        add(paymentBox);
         add(buyButton);
         add(checkBalanceButton);
         add(goToMyFrameButton);
         add(exitButton);
-        setVisible(true);
+        setVisible(true); 
     }
+    public static VendingMachineFrame getInstance(){
+        if(instance == null){
+            instance = new VendingMachineFrame();
+        }
+        return instance;
+
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == goToMyFrameButton){
-             dispose();
-             new MyFrame();
+             setVisible(false);
+             new MyFrame(this);
+             client.setMoney(100f);
         }
         if(e.getSource() == buyButton){
+            revalidate();
+            repaint();
+            int x = (int) ((Math.random() * (10 - 1)) + 1);
+            if(unluckyNumber != x){
+            if(paymentBox.getSelectedIndex()==0){
             try{
 
                 if(whatItemToBuyBox.getSelectedIndex()==0){
@@ -158,14 +180,140 @@ public class VendingMachineFrame extends JFrame implements ActionListener{
             }catch(Exception a){
 
             }
-            
+        }if(paymentBox.getSelectedIndex()==1){
+            try{
+
+                if(whatItemToBuyBox.getSelectedIndex()==0){
+                    //Cola
+                    if(v.getCola().getQuantity()>0){
+                        Object[] possibleValues = {"10", "20", "50", "100"};
+                        Object selectedValue = JOptionPane.showInputDialog(null,
+                  "Wybierz banknot jakim płacisz", "Payment",
+                  JOptionPane.INFORMATION_MESSAGE, null,
+                  possibleValues, possibleValues[0]);    
+                             JOptionPane.showMessageDialog(this, "Zakupiłeś właśnie CocaCole, "+(float) Math.round(((Float.parseFloat(selectedValue.toString()) - v.getCola().getPrice()))*100)/100+"zł reszty", "Zakup Udany", JOptionPane.INFORMATION_MESSAGE);
+                             v.getCola().setQuantity(v.getCola().getQuantity()-1);
+                       }else{
+                            JOptionPane.showMessageDialog(this, "brak produktu", "Brak produktu", JOptionPane.ERROR_MESSAGE);
+                       }
+                }
+                if(whatItemToBuyBox.getSelectedIndex()==1){
+                    //Fanta
+
+                    if(v.getFanta().getQuantity()>0){
+                        Object[] possibleValues = {"10", "20", "50", "100"};
+                        Object selectedValue = JOptionPane.showInputDialog(null,
+                        "Wybierz banknot jakim płacisz", "Payment",
+                  JOptionPane.INFORMATION_MESSAGE, null,
+                  possibleValues, possibleValues[0]);    
+                             JOptionPane.showMessageDialog(this, "Zakupiłeś właśnie Fante, "+(float) Math.round((Float.parseFloat(selectedValue.toString()) - v.getFanta().getPrice())*100)/100+"zł reszty", "Zakup Udany", JOptionPane.INFORMATION_MESSAGE);
+                             v.getFanta().setQuantity(v.getFanta().getQuantity()-1);
+                       }else{
+                            JOptionPane.showMessageDialog(this, "brak produktu", "Brak produktu", JOptionPane.ERROR_MESSAGE);
+                       }
+                }
+                if(whatItemToBuyBox.getSelectedIndex()==2){
+                    //Pepsi
+                    if(v.getPepsi().getQuantity()>0){
+                        Object[] possibleValues = {"10", "20", "50", "100"};
+                        Object selectedValue = JOptionPane.showInputDialog(null,
+                        "Wybierz banknot jakim płacisz", "Payment",
+                  JOptionPane.INFORMATION_MESSAGE, null,
+                  possibleValues, possibleValues[0]);    
+                             JOptionPane.showMessageDialog(this, "Zakupiłeś właśnie Pepsi, "+(float) Math.round((Float.parseFloat(selectedValue.toString()) - v.getPepsi().getPrice())*100)/100+"zł reszty", "Zakup Udany", JOptionPane.INFORMATION_MESSAGE);
+                             v.getPepsi().setQuantity(v.getPepsi().getQuantity()-1);
+                       }else{
+                            JOptionPane.showMessageDialog(this, "brak produktu", "Brak produktu", JOptionPane.ERROR_MESSAGE);
+                       }
+                }
+                if(whatItemToBuyBox.getSelectedIndex()==3){
+                    //Czarna Kawa
+                    cupSizePopup = new CupSizePopup(this);
+                } 
+                if(whatItemToBuyBox.getSelectedIndex()==4){
+                    //Biała kawa
+                    cupSizePopup = new CupSizePopup(this);
+                    
+                        
+                    }
+                if(whatItemToBuyBox.getSelectedIndex()==5){
+                    //Herbata
+                    cupSizePopup = new CupSizePopup(this);
+                        
+                    
+                }
+                if(whatItemToBuyBox.getSelectedIndex()==6){
+                    //Chipsy Lays
+                   if(v.getCzipsy().getQuantity()>0){
+                    Object[] possibleValues = {"10", "20", "50", "100"};
+                    Object selectedValue = JOptionPane.showInputDialog(null,
+                    "Wybierz banknot jakim płacisz", "Payment",
+              JOptionPane.INFORMATION_MESSAGE, null,
+              possibleValues, possibleValues[0]);    
+                         JOptionPane.showMessageDialog(this, "Zakupiłeś właśnie Chipsy Lays, "+(float) Math.round((Float.parseFloat(selectedValue.toString()) - v.getCzipsy().getPrice())*100)/100+"zł reszty", "Zakup Udany", JOptionPane.INFORMATION_MESSAGE);
+                         v.getCzipsy().setQuantity(v.getCzipsy().getQuantity()-1);
+                   }else{
+                        JOptionPane.showMessageDialog(this, "brak produktu", "Brak produktu", JOptionPane.ERROR_MESSAGE);
+                   }
+                }
+                if(whatItemToBuyBox.getSelectedIndex()==7){
+                    //Żelki Gumisie
+                    if(v.getZelki().getQuantity()>0){
+                        Object[] possibleValues = {"10", "20", "50", "100"};
+                        Object selectedValue = JOptionPane.showInputDialog(null,
+                        "Wybierz banknot jakim płacisz", "Payment",
+                  JOptionPane.INFORMATION_MESSAGE, null,
+                  possibleValues, possibleValues[0]);    
+                             JOptionPane.showMessageDialog(this, "Zakupiłeś właśnie Żelki Gumisie, "+(float) Math.round((Float.parseFloat(selectedValue.toString()) - v.getZelki().getPrice())*100)/100+"zł reszty", "Zakup Udany", JOptionPane.INFORMATION_MESSAGE);
+                             v.getZelki().setQuantity(v.getZelki().getQuantity()-1);
+                       }else{
+                            JOptionPane.showMessageDialog(this, "brak produktu", "Brak produktu", JOptionPane.ERROR_MESSAGE);
+                       }
+                }
+                if(whatItemToBuyBox.getSelectedIndex()==8){
+                    //Paluszki Krakuski
+                    if(v.getPaluszki().getQuantity()>0){
+                        Object[] possibleValues = {"10", "20", "50", "100"};
+                        Object selectedValue = JOptionPane.showInputDialog(null,
+                        "Wybierz banknot jakim płacisz", "Payment",
+                  JOptionPane.INFORMATION_MESSAGE, null,
+                  possibleValues, possibleValues[0]);    
+                             JOptionPane.showMessageDialog(this, "Zakupiłeś właśnie Paluszki Krakuski, "+(float) Math.round((Float.parseFloat(selectedValue.toString()) - v.getPaluszki().getPrice())*100)/100+"zł reszty", "Zakup Udany", JOptionPane.INFORMATION_MESSAGE);
+                             v.getPaluszki().setQuantity(v.getPaluszki().getQuantity()-1);
+                       }else{
+                            JOptionPane.showMessageDialog(this, "brak produktu", "Brak produktu", JOptionPane.ERROR_MESSAGE);
+                       }
+                }
+                revalidate();
+                repaint();
+
+
+            }catch(Exception a){
+
+            }
+
         }
+
+        }else{
+            buyButton.setEnabled(false);
+            JOptionPane.showMessageDialog(this, "Awaria!", "Awaria!", JOptionPane.ERROR_MESSAGE);
+            brokenBuyJLabel.setText("Maszyna uległa awarii!!");
+            brokenBuyJLabel.setForeground(Color.RED);
+        }}
+        
         if(e.getSource() == exitButton){
             dispose();
         }
         if(e.getSource() == checkBalanceButton){
+            int x = (int) ((Math.random() * (10 - 1)) + 1);
+            if(unluckyNumber != x){
             JOptionPane.showMessageDialog(this, "Dostępne Środki: "+client.getMoney()+"zł", "Stan Konta", JOptionPane.INFORMATION_MESSAGE);
-        }
+        }else{
+            checkBalanceButton.setEnabled(false);
+            JOptionPane.showMessageDialog(this, "Awaria!", "Awaria!", JOptionPane.ERROR_MESSAGE);
+            brokenBalanceLabel.setText("Przycisk sprawdzania stanu konta zepsuty");
+            brokenBalanceLabel.setForeground(Color.RED);
+        }}
         
         
     }

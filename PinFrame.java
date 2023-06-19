@@ -9,6 +9,7 @@ public class PinFrame extends JFrame implements ActionListener{
     JButton enterButton;
     MyFrame frame;
     JButton goBackButton;
+    VendingMachineFrame vendingMachineFrame;
 
     private int n = 0;
 
@@ -29,7 +30,30 @@ public class PinFrame extends JFrame implements ActionListener{
             popup.add(new JLabel());
             popup.add(new JLabel("Podaj pin"));
             pinJTF = new JTextField();
-            
+            popup.add(pinJTF);
+            popup.add(enterButton);
+            popup.add(new JLabel());
+            popup.add(goBackButton);
+            enterButton.addActionListener(this);
+    }
+    public PinFrame(MyFrame frame, VendingMachineFrame vendingMachineFrame){
+            this.frame = frame;
+            this.vendingMachineFrame = vendingMachineFrame;
+            goBackButton = new JButton("Cofnij");
+            goBackButton.addActionListener(this);
+            enterButton = new JButton("Enter");
+            popup = new JFrame("Popup");
+            serviceman = new Serviceman();
+            popup.setSize(300, 300);
+            popup.setLocationRelativeTo(null);
+            popup.setDefaultCloseOperation(EXIT_ON_CLOSE);
+            popup.setVisible(true);
+            popup.setLayout(new GridLayout(8, 1, 10, 10));
+            popup.add(new JLabel());
+            popup.add(new JLabel());
+            popup.add(new JLabel());
+            popup.add(new JLabel("Podaj pin"));
+            pinJTF = new JTextField();
             popup.add(pinJTF);
             popup.add(enterButton);
             popup.add(new JLabel());
@@ -44,7 +68,7 @@ public class PinFrame extends JFrame implements ActionListener{
            if(Integer.parseInt(pinJTF.getText()) == serviceman.getPin()){
                popup.dispose();
                serviceman = new Serviceman();
-               new VendingMachineFrame(serviceman);
+               new VendingMachineServiceFrame(serviceman);
                frame.dispose();
                n=0;
            }else{
