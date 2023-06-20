@@ -12,33 +12,10 @@ public class PinFrame extends JFrame implements ActionListener{
     VendingMachineFrame vendingMachineFrame;
 
     private int n = 0;
-
-    public PinFrame(MyFrame frame){
+    
+    public PinFrame(MyFrame frame ){
             this.frame = frame;
-            goBackButton = new JButton("Cofnij");
-            goBackButton.addActionListener(this);
-            enterButton = new JButton("Enter");
-            popup = new JFrame("Popup");
-            serviceman = new Serviceman();
-            popup.setSize(300, 300);
-            popup.setLocationRelativeTo(null);
-            popup.setDefaultCloseOperation(EXIT_ON_CLOSE);
-            popup.setVisible(true);
-            popup.setLayout(new GridLayout(8, 1, 10, 10));
-            popup.add(new JLabel());
-            popup.add(new JLabel());
-            popup.add(new JLabel());
-            popup.add(new JLabel("Podaj pin"));
-            pinJTF = new JTextField();
-            popup.add(pinJTF);
-            popup.add(enterButton);
-            popup.add(new JLabel());
-            popup.add(goBackButton);
-            enterButton.addActionListener(this);
-    }
-    public PinFrame(MyFrame frame, VendingMachineFrame vendingMachineFrame){
-            this.frame = frame;
-            this.vendingMachineFrame = vendingMachineFrame;
+            this.vendingMachineFrame = VendingMachineFrame.getInstance();
             goBackButton = new JButton("Cofnij");
             goBackButton.addActionListener(this);
             enterButton = new JButton("Enter");

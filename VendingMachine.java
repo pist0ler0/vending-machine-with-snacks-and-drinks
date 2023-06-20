@@ -1,10 +1,4 @@
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-
-public final class VendingMachine implements Serializable{
+public final class VendingMachine {
     private static VendingMachine instance;
     private float waterQuantity = 10;
     private int sugarPortions = 10;
@@ -14,9 +8,6 @@ public final class VendingMachine implements Serializable{
     private float reqSmallCupWaterQuantity = 0.3f;
     private float reqMediumCupWaterQuantity = 0.4f;
     private float reqBigCupWaterQuantity = 0.5f;
-    File yourFile;
-    FileOutputStream f;
-    ObjectOutputStream oOS;
     HotDrink czarna_kawa;
     HotDrink herbata;
     HotDrink biala_kawa;
