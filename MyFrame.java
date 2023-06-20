@@ -14,35 +14,10 @@ public class MyFrame extends JFrame implements ActionListener{
         return this;
     }
     public MyFrame(){
-        super("nie umiem");
+        super("VendingMachineSimulator");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(800, 800);
         setLocationRelativeTo(null);
-        setTitle("Vending Machine Simulator");
-        setResizable(false);
-        setLayout(new GridLayout(8, 2, 20, 20));
-        add(new JLabel());
-        add(new JLabel());
-        add(new JLabel());
-        serviceButton = new JButton("Pracownik Serwisu");
-        clientButton = new JButton("Klient");
-        clientButton.addActionListener(this);
-        serviceButton.addActionListener(this);
-        add(serviceButton);
-        add(clientButton);
-        exitButton = new JButton("Zamknij");
-        exitButton.addActionListener(this);
-        add(new JLabel());
-        add(exitButton);
-        setVisible(true);
-
-    }
-    public MyFrame(VendingMachineFrame frame){
-        super("nie umiem");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(800, 800);
-        setLocationRelativeTo(null);
-        setTitle("Vending Machine Simulator");
         setResizable(false);
         setLayout(new GridLayout(8, 2, 20, 20));
         add(new JLabel());

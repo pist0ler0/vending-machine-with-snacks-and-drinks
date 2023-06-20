@@ -2,6 +2,9 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 
 import javax.swing.*;
 
@@ -85,7 +88,7 @@ public final class VendingMachineFrame extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == goToMyFrameButton){
              setVisible(false);
-             new MyFrame(this);
+             new MyFrame();
              client.setMoney(100f);
         }
         if(e.getSource() == buyButton){
@@ -314,6 +317,15 @@ public final class VendingMachineFrame extends JFrame implements ActionListener{
             brokenBalanceLabel.setText("Przycisk sprawdzania stanu konta zepsuty");
             brokenBalanceLabel.setForeground(Color.RED);
         }}
+         try{
+            FileOutputStream f = new FileOutputStream("VendingMachineThings.txt");
+            ObjectOutputStream oOS = new ObjectOutputStream(f);
+            oOS.writeObject(VendingMachine.getInstance(VendingMachineFrame.getInstance()));
+            oOS.close();
+            f.close();
+        }catch(IOException g){
+            g.printStackTrace();
+        }
         
         
     }

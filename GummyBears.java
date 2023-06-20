@@ -1,5 +1,5 @@
 public class GummyBears extends Item{
-    private String name = "Gumisie";
+    private String name = "Żelki Gumisie";
     public GummyBears(){
         super(10, 6);
     }

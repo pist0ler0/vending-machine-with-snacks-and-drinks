@@ -1,5 +1,5 @@
 public class Serviceman extends Person {
-    private int pin = 6969;
+    private int pin = 1234;
     public int getPin(){
         return pin;
     }

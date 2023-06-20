@@ -1,5 +1,5 @@
 public class Lays extends Item {
-    private String name = "czipsy Lays";
+    private String name = "Chipsy Lays";
 
     public Lays(){
         super(10, 8);

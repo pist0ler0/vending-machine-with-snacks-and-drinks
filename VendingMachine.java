@@ -1,4 +1,10 @@
-public final class VendingMachine {
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
+public final class VendingMachine implements Serializable{
     private static VendingMachine instance;
     private float waterQuantity = 10;
     private int sugarPortions = 10;
@@ -8,6 +14,9 @@ public final class VendingMachine {
     private float reqSmallCupWaterQuantity = 0.3f;
     private float reqMediumCupWaterQuantity = 0.4f;
     private float reqBigCupWaterQuantity = 0.5f;
+    File yourFile;
+    FileOutputStream f;
+    ObjectOutputStream oOS;
     HotDrink czarna_kawa;
     HotDrink herbata;
     HotDrink biala_kawa;
@@ -27,11 +36,12 @@ public final class VendingMachine {
         czipsy = new Lays();
         zelki = new GummyBears();
         paluszki = new BreadSticks();
+        
     }
     public static VendingMachine getInstance(VendingMachineFrame frame){
         if(instance == null){
             instance = new VendingMachine(frame);
-        }
+        }  
         return instance;
 
     }

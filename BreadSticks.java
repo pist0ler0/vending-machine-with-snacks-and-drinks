@@ -1,5 +1,5 @@
 public class BreadSticks extends Item {
-    private String name = "Paluszki krakowskie";
+    private String name = "Paluszki krakuski";
     
     public BreadSticks(){
         super(10, 7);
