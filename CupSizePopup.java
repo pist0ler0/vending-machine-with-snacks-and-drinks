@@ -21,7 +21,7 @@ public class CupSizePopup extends JFrame implements ActionListener {
     }
 
     public CupSizePopup(VendingMachineFrame frame) {
-        super("Wybierz wielkość Kubka");
+        super("Wybierz wielkość Kubka oraz ilość porcji cukru");
         this.frame = frame;
         setSize(500, 500);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
